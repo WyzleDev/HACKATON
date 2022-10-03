@@ -20,8 +20,8 @@ class DataBase:
                 self.cur.execute(sql_create_table_query)
                 self.create_company_profile(self.conn, company)
             return self.cur.lastrowid
-        except sqlite3.IntegrityError as IE:
-            print("error inserting info bacuse company value id is already defined")
+        except Exception as e:
+            print(e)
 
     def create_worker_profile(self, connection: sqlite3.Connection, person: tuple):
         try:
@@ -37,29 +37,29 @@ class DataBase:
                 self.create_worker_profile(self.conn, person)
             return self.cur.lastrowid
         except sqlite3.IntegrityError as IE:
-            print("error inserting info bacuse worker value id is already defined")
+            pass
 
-    def get_last_id(self):
-        try:
-            sql_query = """SELECT * FROM companies ORDER BY id DESC LIMIT 1;"""
-            self.cur.execute(sql_query)
-            rows = self.cur.fetchall()
-            for i in rows:
-                return i
-        except Exception as e:
-            print(e)
-
-
-def main():
-    db = DataBase()
-    conn = db.conn
-    db.create_worker_profile(conn, (1, "alexy", "sys", "19", "BACKEND-developer",
-                             "qertynon@gmail.com", "https://t.me/vbutkev1ch"))
-    db.create_company_profile(
-        conn, (1, "WyzleDev", "best team", "https://google.com", "qertynon@gmail.com"))
-    for value in db.get_last_id():
-        print(value)
+    # def get_company_last_id(self):
+    #     try:
+    #         sql_query = """SELECT id FROM companies ORDER BY id DESC LIMIT 1;"""
+    #         self.cur.execute(sql_query)
+    #         rows = self.cur.fetchall()
+    #         for i in rows:
+    #             return i
+    #     except Exception as e:
+    #         print(e)
 
 
-if __name__ == "__main__":
-    main()
+# def main():
+#     db = DataBase()
+#     conn = db.conn
+#     # db.create_worker_profile(conn, (1, "alexy", "sys", "19", "BACKEND-developer",
+#     #                          "qertynon@gmail.com", "https://t.me/vbutkev1ch"))
+#     # db.create_company_profile(
+#     #     conn, (1, "WyzleDev", "best team", "https://google.com", "qertynon@gmail.com"))
+#     for value in db.get_company_last_id():
+#         print(int(value))
+
+
+# if __name__ == "__main__":
+#     main()
