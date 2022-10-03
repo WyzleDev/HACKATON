@@ -39,16 +39,6 @@ class DataBase:
         except sqlite3.IntegrityError as IE:
             pass
 
-    # def get_company_last_id(self):
-    #     try:
-    #         sql_query = """SELECT id FROM companies ORDER BY id DESC LIMIT 1;"""
-    #         self.cur.execute(sql_query)
-    #         rows = self.cur.fetchall()
-    #         for i in rows:
-    #             return i
-    #     except Exception as e:
-    #         print(e)
-
 
 # def main():
 #     db = DataBase()
